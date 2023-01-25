@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+
+  nginx:
+    build:
+      context: .
+      target: nginx
+    ports:
+      - '8000:80'
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: .
+      target: app
+    env_file:
+      - ./laravel/.env
+    depends_on:
+      - mysql
+    volumes:
+      - ./laravel:/var/www/html:cached
+
+  mysql:
+    image: mysql:5.7.16
+    environment:
+      MYSQL_DATABASE: app_database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+
