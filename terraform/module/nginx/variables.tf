@@ -3,3 +3,20 @@ variable "domain" {
     type = string
     default = "mysite-webapp.com"
 }
+
+variable db_host {
+    default = "db.cvnmh5fxogui.ap-northeast-1.rds.amazonaws.com"
+}
+
+variable db_port {
+    default = "3306"
+}
+variable db_database {
+    default = "app_database"
+}
+variable db_username {
+    default = "user"
+}
+variable db_password {
+    default = "password"
+}
