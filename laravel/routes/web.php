@@ -19,3 +19,4 @@ use App\Http\Controllers\TestController;
 // });
 
 Route::get('/', [TestController::class, 'index'])->name('index');
+Route::post('/register', [TestController::class, 'register'])->name('register');
