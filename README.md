@@ -2,7 +2,7 @@
 Webアプリケーションをnginx + Laravel on ECS + RDSの環境で動かす。
 
 ## 構成
-![test](https://user-images.githubusercontent.com/99404423/215109477-acf9e211-2885-4b92-a231-59957d42c633.png)
+![test](https://user-images.githubusercontent.com/99404423/215111589-b841a4d7-2574-480c-a7f5-d5d78ac83490.png)
 
 ## Setup (on AWS)
 1. make terraform/terraform.tfvars and write db connection information
