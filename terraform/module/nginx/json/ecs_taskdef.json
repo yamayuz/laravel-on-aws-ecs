@@ -47,6 +47,10 @@
             {
                 "valueFrom": "/db_password",
                 "name": "DB_PASSWORD"
+            },
+            {
+                "valueFrom": "/app_env",
+                "name": "APP_ENV"
             }
         ],
         "dockerSecurityOptions": null,

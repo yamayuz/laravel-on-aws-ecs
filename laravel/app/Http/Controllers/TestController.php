@@ -11,10 +11,6 @@ class TestController extends Controller
     {
         $items = Item::select('item')->get();
 
-        // foreach($items as $item) {
-        //     dd($item['item']);
-        // }
-
         return view('index', compact('items'));
     }
 

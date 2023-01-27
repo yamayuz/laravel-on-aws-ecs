@@ -5,7 +5,7 @@ variable "domain" {
 }
 
 variable db_host {
-    default = "db.cvnmh5fxogui.ap-northeast-1.rds.amazonaws.com"
+    default = "rds-instance.cvnmh5fxogui.ap-northeast-1.rds.amazonaws.com"
 }
 
 variable db_port {
@@ -19,4 +19,8 @@ variable db_username {
 }
 variable db_password {
     default = "password"
+}
+
+variable app_env {
+    default = "production"
 }
