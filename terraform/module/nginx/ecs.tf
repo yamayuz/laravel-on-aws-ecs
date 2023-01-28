@@ -4,6 +4,7 @@ resource "aws_ecs_cluster" "nginx_ecs_cluster" {
 
 resource "aws_ecs_service" "nginx_ecs_service" {
     name = "nginx"
+    enable_execute_command = true
     depends_on = ["aws_alb_listener_rule.nginx_alb_listener_rule"]
     cluster = "${aws_ecs_cluster.nginx_ecs_cluster.name}"
     launch_type = "FARGATE"
@@ -23,6 +24,7 @@ resource "aws_ecs_service" "nginx_ecs_service" {
 
 resource "aws_ecs_task_definition" "nginx_ecs_task" {
     family = "nginx"
+    task_role_arn = aws_iam_role.ecs_task_role.arn
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     requires_compatibilities = ["FARGATE"]
     cpu = "256"

@@ -33,8 +33,14 @@ cd terraform
 terraform plan
 terraform apply
 ```
+6. migratation
+ECS Execでappコンテナに接続しmigrationを実行する
+```
+aws ecs execute-command --task=[タスクID] --interactive --cluster=nginx --container=app --command /bin/sh
+php artisan migrate
+```
 ※Notes: don't forget [terraform destroy]
 
 ## Reference source
 * [Terraformで構築するAWS](https://y-ohgi.com/introduction-terraform/handson/ecs/)
-
+* [ECS Exec を有効化する手順](https://qiita.com/tonluqclml/items/ef20541dbefb46e6a193)
