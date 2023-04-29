@@ -20,6 +20,8 @@ services:
       - mysql
     volumes:
       - ./laravel:/var/www/html:cached
+      - /var/www/laravel/vendor/
+      - /var/www/laravel/bootstrap/cache
 
   mysql:
     image: mysql:5.7.16

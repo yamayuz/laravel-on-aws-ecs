@@ -5,35 +5,45 @@ Webアプリケーションをnginx + Laravel on ECS + RDSの環境で動かす�
 ![test](https://user-images.githubusercontent.com/99404423/215111589-b841a4d7-2574-480c-a7f5-d5d78ac83490.png)
 
 ## Setup (on AWS)
-1. make terraform/terraform.tfvars and write db connection information
-2. ECRにnginxとlaravelのリポジトリを作成
+1. terraform/terraform.tfvarsを用意して、DB接続情報を記載する
+2. docker/nginx/default.confを書き換え
 ```
-cd terraform
+local : fastcgi_pass app:9000;
+aws : fastcgi_pass localhost:9000;
+```
+
+3. ECRにnginxとlaravelのリポジトリを作成
+```
+cd terraform/prod
 terraform init
 terraform apply -target=module.nginx.aws_ecr_repository.nginx_ecr_repository
 terraform apply -target=module.nginx.aws_ecr_repository.app_ecr_repository
 ```
-3. docker imageを作成し、タグをつける
+
+4. docker imageを作成し、タグをつける
 ```
-cd ..
+cd ../..
 docker-compose -f docker-compose.yml build --no-cache nginx
 docker-compose -f docker-compose.yml build --no-cache app
 docker tag laravel-on-aws-ecs_nginx:latest [AWS_ACCOUNT_ID].dkr.ecr.ap-northeast-1.amazonaws.com/nginx:latest
 docker tag laravel-on-aws-ecs_app:latest [AWS_ACCOUNT_ID].dkr.ecr.ap-northeast-1.amazonaws.com/laravel:latest
 ```
-4. AWS CLI認証し、docker imageをecrへプッシュ
+
+5. AWS CLI認証し、docker imageをecrへプッシュ
 ```
 aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin [AWS_ACCOUNT_ID].dkr.ecr.ap-northeast-1.amazonaws.com
 docker push [AWS_ACCOUNT_ID].dkr.ecr.ap-northeast-1.amazonaws.com/nginx:latest
 docker push [AWS_ACCOUNT_ID].dkr.ecr.ap-northeast-1.amazonaws.com/laravel:latest
 ```
-5. make other AWS resources
+
+6. make other AWS resources
 ```
-cd terraform
+cd terraform/prod
 terraform plan
 terraform apply
 ```
-6. migratation
+
+7. migratation
 ECS Execでappコンテナに接続しmigrationを実行する
 ```
 aws ecs execute-command --task=[タスクID] --interactive --cluster=nginx --container=app --command /bin/sh
