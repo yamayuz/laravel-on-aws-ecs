@@ -1,15 +1,15 @@
-resource "aws_ecs_cluster" "nginx_ecs_cluster" {
-    name = "nginx"
+resource "aws_ecs_cluster" "myapp_ecs_cluster" {
+    name = "myapp"
 }
 
-resource "aws_ecs_service" "nginx_ecs_service" {
-    name = "nginx"
+resource "aws_ecs_service" "myapp_ecs_service" {
+    name = "myapp"
     enable_execute_command = true
     depends_on = ["aws_alb_listener_rule.nginx_alb_listener_rule"]
-    cluster = "${aws_ecs_cluster.nginx_ecs_cluster.name}"
+    cluster = "${aws_ecs_cluster.myapp_ecs_cluster.name}"
     launch_type = "FARGATE"
     desired_count = "1"
-    task_definition = "${aws_ecs_task_definition.nginx_ecs_task.arn}"
+    task_definition = "${aws_ecs_task_definition.myapp_ecs_task.arn}"
     health_check_grace_period_seconds = 3600
     network_configuration {
         subnets  = ["${aws_subnet.nginx_private_subnet_1a.id}"]
@@ -22,8 +22,8 @@ resource "aws_ecs_service" "nginx_ecs_service" {
     }
 }
 
-resource "aws_ecs_task_definition" "nginx_ecs_task" {
-    family = "nginx"
+resource "aws_ecs_task_definition" "myapp_ecs_task" {
+    family = "myapp"
     task_role_arn = aws_iam_role.ecs_task_role.arn
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     requires_compatibilities = ["FARGATE"]

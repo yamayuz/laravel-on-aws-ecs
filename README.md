@@ -46,7 +46,7 @@ terraform apply
 7. migratation
 ECS Execでappコンテナに接続しmigrationを実行する
 ```
-aws ecs execute-command --task=[タスクID] --interactive --cluster=nginx --container=app --command /bin/sh
+aws ecs execute-command --task=[タスクID] --interactive --cluster=myapp --container=app --command /bin/sh
 php artisan migrate
 ```
 ※Notes: don't forget [terraform destroy]
