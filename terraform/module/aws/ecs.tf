@@ -5,7 +5,7 @@ resource "aws_ecs_cluster" "myapp_ecs_cluster" {
 resource "aws_ecs_service" "myapp_ecs_service" {
     name = "myapp"
     enable_execute_command = true
-    depends_on = ["aws_alb_listener_rule.nginx_alb_listener_rule"]
+    depends_on = [aws_alb_listener_rule.nginx_alb_listener_rule]
     cluster = "${aws_ecs_cluster.myapp_ecs_cluster.name}"
     launch_type = "FARGATE"
     desired_count = "1"

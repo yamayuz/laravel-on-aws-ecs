@@ -16,8 +16,8 @@ aws : fastcgi_pass localhost:9000;
 ```
 cd terraform/prod
 terraform init
-terraform apply -target=module.nginx.aws_ecr_repository.nginx_ecr_repository
-terraform apply -target=module.nginx.aws_ecr_repository.app_ecr_repository
+terraform apply -target=module.aws.aws_ecr_repository.nginx_ecr_repository
+terraform apply -target=module.aws.aws_ecr_repository.app_ecr_repository
 ```
 
 4. docker imageを作成し、タグをつける

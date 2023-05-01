@@ -1,6 +1,6 @@
 variable "app" {}
 
-module "nginx" {
-    source = "../module/nginx"
+module "aws" {
+    source = "../module/aws"
     app = var.app
 }

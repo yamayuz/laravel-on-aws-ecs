@@ -19,7 +19,7 @@ resource "aws_acm_certificate_validation" "nginx_acm_cer_val" {
 # Route53
 # -----------------------------------------------
 resource "aws_route53_record" "nginx_route53_record_val" {
-    depends_on = ["aws_acm_certificate.nginx_acm_cer"]
+    depends_on = [aws_acm_certificate.nginx_acm_cer]
     zone_id = "${data.aws_route53_zone.nginx_route53_zone.id}"
     ttl = 60
 
